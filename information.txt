@@ -1,0 +1,13 @@
+Projector Version = 104.097
+Kernel Version = 2.4.31 #167 Thu May 26 17:21:54 EDT 2011
+QuickCheck Version = 2.0
+Hobbs - Projector (Hours) = 228
+Hobbs - X Scanner (Hours) = 228
+Hobbs - Y Scanner (Hours) = 228
+Hobbs - Laser (Hours) = 228
+Serial Number = 11231
+AutoFocus Collimator Type = AF
+VisionFocus Collimator Type = FF
+Date Of Manufacture = June 2015
+Projector Type = FIDUCIAL
+
