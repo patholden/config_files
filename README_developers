@@ -123,6 +123,7 @@ To run AGS operational code:
    Log in to system (login: root, pwd: temp1234).
    Run "/etc/ags/S50agsd start &" at prompt.
    syslogs are in /tmp/messages.  Just run "grep agsd /tmp/messages |more" to see them all. or grep on a specific buzz word you put into your log messages.
+   Use LOG_DEBUG for debugging, LOG_NOTICE for info you want to log always, and LOG_ERR for any errors you want flagged and nonvolatile in messages.
    NOTE:  the USB stick is volatile so you lose anything you have in the logs once you reboot.
 ================================================================
 =                                                              =
@@ -134,4 +135,13 @@ If you need to modify the kernel for some reason:
 Make changes in local linux directory that buildroot points to as local directory.
 Compile in local directory to make sure you can do so.
 Once compiled, go to buildroot top-level directory.  Run "rm -rf output/build/linux-custom".  Then run "make".  Buildroot will resync with your local directory and incorporate into new rootFS.
+================================================================
+=                                                              =
+=                      DEBUGGING                               =
+=                                                              =
+================================================================
+We have strace, gdb, and syslog (/tmp/messages).
+Syslogs:  see section above (BURN SOME STUFF).  When displaying data:  %f is for double/float.  %lx is for [u]int64_t, %x is for [u]int32_t & [u]int16_t, %d decimal, %c single char, %s string.  I think %f & %lx are biggest changes for x86_64.
+GDB:  I haven't got gdbinit quite working with the .c/.o files but the .c & .o are in the flash for now.  You can use gdb for basics, it's great for tracing seg-faults.  I'll work on the init so full debugging can be utilized (breakpoints, etc).
+
 
