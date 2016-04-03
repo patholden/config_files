@@ -1,4 +1,4 @@
-BUILDROOT_DIR = /home/patti/buildroot/board/ags/rootfs_overlay/etc/ags/conf
+BUILDROOT_DIR = /home/petera/buildroot/board/ags/rootfs_overlay/etc/ags/conf
 LDFLAGS = -static
 LIBS = -lm
 CFLAGS = -g -march=atom
