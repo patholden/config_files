@@ -3,15 +3,18 @@
 =                      GIT-some stuff                          =
 =                                                              =
 ================================================================
-AGS Git repositories:
+AGS Git repositories:  NOTE WHEN PULLING STUFF YOU NEED TO USE "origin" for
+    		       LINUX or "master" for other remote repositories.
 GIT Upstream Linux repository:
+======================
 git init
 git remote add master https://github.com/patholden/linux.git
 git config --global push.default
 git remote -v  (Returns fetch & push URL)
 git remote show (returns master)
-git pull https://github.com/patholden/linux.git master
+git pull https://github.com/patholden/linux.git origin
 GIT Upstream AGSD repository:
+======================
 git init
 git remote add master https://github.com/patholden/agsd-lg.git
 git config --global push.default
@@ -19,6 +22,7 @@ git remote -v  (Returns fetch & push URL)
 git remote show (returns master)
 git pull https://github.com/patholden/agsd-lg.git master
 GIT Upstream CONFIG-FILES repository:
+======================
 git init
 git remote add master https://github.com/patholden/config_files.git
 git config --global push.default
@@ -26,6 +30,7 @@ git remote -v  (Returns fetch & push URL)
 git remote show (returns master)
 git pull https://github.com/patholden/config_files.git master
 GIT Upstream TEST-FILES repository:
+======================
 git init
 git remote add master https://github.com/patholden/test-files.git
 git config --global push.default
@@ -33,21 +38,25 @@ git remote -v  (Returns fetch & push URL)
 git remote show (returns master)
 git pull https://github.com/patholden/test-files.git master
 GIT Making changes (applies to any git repository):
+======================
 git commit -a (makes a local copy)
-git push
+git push <master|origin>
 GIT Syncing with upstream master(applies to any git repository):
+======================
 git checkout master
-git pull <URL> master
-(fix any merge conflicts)
 git commit -a (commits to local repository)
-git push origin master
+git pull <URL> <master|origin>
+    Fix merge conflicts
+    git commit -a  (will get message that you're in-synch)
 GIT adding files:
+======================
 git add <filename>
 git commit -a  (popup will have commit description you need to fill in and save)
-git push
+git push <master|origin>
 GIT recovering deleted file:
+======================
 (Delete file)
-git pull <URL> master
+git pull <URL> <master|origin>
 ================================================================
 =                                                              =
 =                      BUILD-some stuff                        =
