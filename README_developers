@@ -13,6 +13,10 @@ git config --global push.default
 git remote -v  (Returns fetch & push URL)
 git remote show (returns master)
 git pull https://github.com/patholden/linux.git origin
+NOTE:  YOU MUST force buildroot to resync in order to re-build new linux.
+Run "rm -rf output/build/linux-custom".
+Then run "make".
+
 GIT Upstream AGSD repository:
 ======================
 git init
@@ -139,18 +143,35 @@ To run AGS operational code:
 =                      KERNEL UPDATES                          =
 =                                                              =
 ================================================================
-If you need to modify the kernel for some reason:
+If you need to modify the kernel for some reason (or have to re-synch with linux GIT repository):
 
 Make changes in local linux directory that buildroot points to as local directory.
 Compile in local directory to make sure you can do so.
-Once compiled, go to buildroot top-level directory.  Run "rm -rf output/build/linux-custom".  Then run "make".  Buildroot will resync with your local directory and incorporate into new rootFS.
+Once compiled, go to buildroot top-level directory.
+Run "rm -rf output/build/linux-custom".
+Then run "make".
+Buildroot will resync with your local directory and incorporate into new rootFS.
+If headers change:
+ Run "make headers_install arch=x86_64 INSTALL_HDR_PATH=<your-headers-directory>", whatever that may be for your environment & then rebuild AGS.
+ If you change the .config file:
+ Copy .config to arch/x86/configs/agslaser_config from main Linux directory.
+When done with kernel updates:
+make clean
+git commit -a
+git push [linux-git-URL] master
+
 ================================================================
 =                                                              =
 =                      DEBUGGING                               =
 =                                                              =
 ================================================================
 We have strace, gdb, and syslog (/tmp/messages).
-Syslogs:  see section above (BURN SOME STUFF).  When displaying data:  %f is for double/float.  %lx is for [u]int64_t, %x is for [u]int32_t & [u]int16_t, %d decimal, %c single char, %s string.  I think %f & %lx are biggest changes for x86_64.
+Syslogs:  see section above (BURN SOME STUFF).  When displaying data:  %f is for double/float.  %lx is for [u]int64_t, %x is for [u]int32_t & [u]int16_t, %d decimal, %c single char, %s string.  I think %f & %lx are biggest changes for x86_64.  DO NOT use /n or /r.  Each syslog call is 1 line in /tmp/messages file.  AGS_DEBUG is defined for wrapping syslog() calls for LOG_DEBUG.
 GDB:  I haven't got gdbinit quite working with the .c/.o files but the .c & .o are in the flash for now.  You can use gdb for basics, it's great for tracing seg-faults.  I'll work on the init so full debugging can be utilized (breakpoints, etc).
-
+================================================================
+=                                                              =
+=                      NETWORK INTERFACE CHANGES               =
+=                                                              =
+================================================================
+There is a skeleton.mk file that buildroot uses to build up the root file system.  There is a local copy of this file in ags-config-files directory.  Edit this file to change your target system's  IP address (grep for network in the file).  Then run "make install" from the agsd-lg directory.  It will put the new skeleton.mk file into the correct buildroot location.  Then go to buildroot directory & re-run make.
 

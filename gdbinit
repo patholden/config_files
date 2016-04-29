@@ -35,5 +35,7 @@ set $SHOWDATAWIN = 0
 # Set up remote debug
 #set serial baud 115200
 #set debug remote 1
+# set directory for AGS target board
+dir /etc/ags
 
 # __________________end gdb options_________________
