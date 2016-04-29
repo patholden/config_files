@@ -7,7 +7,7 @@
 #
 start() {
   printf "Starting AGS LASERVISION daemon"
-  start-stop-daemon -S -q -p /var/run/agsd.pid --exec /etc/ags/agsd
+  start-stop-daemon -S -q -p /var/run/agsd.pid --exec /usr/sbin/agsd &
   [ $? = 0 ] && echo "OK" || echo "FAIL"
 }
 
