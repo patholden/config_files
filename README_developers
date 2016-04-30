@@ -83,6 +83,7 @@ Go into ags directory and set up operating directories in the ags daemon Makefil
 Go into linux directory and install headers:
 1. make headers_install arch=x86_64 INSTALL_HDR_PATH=<your-headers-directory>, whatever that may be for your environment.
 2.  Copy arch/x86/configs/agslaser_config to .config in Linux main directory.
+Go to config-files directoy and run "make install".  This will copy the LaserGuide "*.txt" to the agsd files (names are different).
 Go to ags daemon directoy and run "make", then "make install".
 Go into ags test directory and run "make", then "make install".  You need to also set up your directories at top of the test Makefile.
 Go into buildroot directory and run "make".  If you made it this far, you're ready to burn a USB stick.
