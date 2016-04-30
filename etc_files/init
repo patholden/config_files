@@ -1,7 +1,7 @@
 $
-TransformTolerance = 8.0E-8
-DisplayPeriod = 75
-FastExponent = 12
+TransformTolerance = 8.0E-6
+DisplayPeriod = 150
+FastExponent = 11
 SlowExponent = 8
 CurveInterpolation = .25
 ArcSteps = 60
@@ -14,5 +14,6 @@ SuperFineFactor = 20
 Searchattempts = 2
 multiplesweeps = 2 
 Dwell = 10
-IpAddress = 10.1.1.116
+IpAddress = 10.1.1.206
+ProjectorMode = Vision
 XXX

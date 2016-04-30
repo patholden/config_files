@@ -17,6 +17,8 @@ install:
 	cp information.txt $(BUILDROOT_DIR)/info
 	dos2unix initialization.txt
 	cp initialization.txt $(BUILDROOT_DIR)/init
+	dos2unix polarizer.txt
+	cp polarizer.txt $(BUILDROOT_DIR)/polarizer
 	touch $(BUILDROOT_DIR)/hobbs
 	touch $(BUILDROOT_DIR)/xscanner
 	touch $(BUILDROOT_DIR)/yscanner
