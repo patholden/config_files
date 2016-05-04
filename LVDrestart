@@ -1,0 +1,18 @@
+#! /bin/sh
+#
+# LVDrestart	This script will stop agsd and reboot the system.  After stopping
+#               the daemon, it will look for new version of the daemon first.
+#               If found, copy current version to backup directory, unzip new
+#               ags.gz file, mv unzipped agsd file to standard directory, then
+#               reboot.
+#
+# Version:	1.0
+#
+echo "Stopping AGS LASERVISION daemon and rebooting system"
+sleep 1
+start-stop-daemon -K -q -p /var/run/agsd.pid
+umount -a
+sync
+echo b > /proc/sysrq-trigger
+# Should never get to exit!
+exit $?
