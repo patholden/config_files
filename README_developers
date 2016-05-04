@@ -77,7 +77,7 @@ Go to test directory, follow GIT instructions for https://github.com/patholden/t
 Go to buildroot directory and do following:
 1.  Copy ags-buildroot-config FROM your config file to buildroot directory .config.
 2.  Run "make menu-config".  Change System configuration "rootoverlay" directory to be $(HOME)/buildroot/board/agslaser.  Change kernel configuration Local directory to your linux directory.  Change kernel configuration kernel config to your linux directory/.config.
-3.  Make directory board/agslaser/rootfs_overlay.  Under rootfs_overlay you will need to create etc/ags/conf and debug.
+3.  Make directory board/agslaser/rootfs_overlay.  Under rootfs_overlay you will need to create lv/data and lv/sbin.
 3.  Run "make" and go have lunch.
 Go into ags directory and set up operating directories in the ags daemon Makefile (at top of Makefile).
 Go into linux directory and install headers:
@@ -94,7 +94,7 @@ Go into buildroot directory and run "make".  If you made it this far, you're rea
 ================================================================
 Make a bootable USB stick:
      Need USB memory stick (I use SanDisk Cruzer 16GB).
-     Figure out what linux assigns as /dev for USB stick.  Mine is /dev/sdb1.
+     Figure out what linux assigns as /dev for USB stick.  Mine is /dev/sdb.
      Make sure it's not currently mounted.
      Enter ¨sudo fdisk /dev/sdb¨.  Enter following at prompts:
          o<CR>
@@ -102,21 +102,29 @@ Make a bootable USB stick:
     	 p<CR>
     	 1<CR>
 	 (default first cylinder)<CR>
-   	 (default last cylinder)<CR>
+   	 +2G
 	 t<CR>
 	 83<CR>
 	 a<CR>  (Note:  here you may need to enter 1 if boot flag isn´t set)
+	 n<CR>
+	 p<CR>
+	 2<CR>
+	 (default first cylinder)<CR>
+	 +2G<CR>
+	 p<CR> ***Verifies 2 partitions.
     	 w<CR>
     	 quit
     Now run following commands as su:
-    sudo mkfs -t ext2 /dev/sdb1
+    sudo mkfs.ext2 /dev/sdb1
     (wait)
-    sudo tune2fs -L <labelname> /dev/sdb1 (this is optional but I use it)
+    sudo mkfs.ext2 /dev/sdb2
+    sudo tune2fs -L <LVboot> /dev/sdb1 (this is optional but I use it)
+    sudo tune2fs -L <LVdata> /dev/sdb2 (this is optional but I use it)
     sudo mkdir /mnt/usb
     sudo mount /dev/sdb1 /mnt/usb
 If you don't have syslinux, then do next step:
     sudo wget http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-4.04.tar.bz2
-    sudo tar xvjf syslinux-4.04.tar.bz2 (any dir will do)
+    sudo tar xvjf syslinux-4.04.tar.bz2 (any dir will do, follow instructions to install it)
 Move syslinux to the USB stick:
     cd syslinux-4.04
     cd mbr
@@ -134,8 +142,7 @@ Move syslinux to the USB stick:
 ================================================================
 Go back to ags directory and run "make burnusb".
 To run AGS operational code:
-   Log in to system (login: root, pwd: temp1234).
-   Run "/etc/ags/S50agsd start &" at prompt.
+   Turn system on.  daemon is auto-starting.  To verify, login (root/temp1234), ps |grep agsd.  Make sure it's running.  Also verify /var/run/agsd.pid file matches pid from ps command.
    syslogs are in /tmp/messages.  Just run "grep agsd /tmp/messages |more" to see them all. or grep on a specific buzz word you put into your log messages.
    Use LOG_DEBUG for debugging, LOG_NOTICE for info you want to log always, and LOG_ERR for any errors you want flagged and nonvolatile in messages.
    NOTE:  the USB stick is volatile so you lose anything you have in the logs once you reboot.

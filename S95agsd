@@ -1,29 +1,32 @@
 #! /bin/sh
 #
-# S99agsd	This script runs the user program /etc/ags/agsd.
+# S99agsd	This script runs the user program /laservision/sbin/agsd.
 #		It is started at boot time and can be restarted and stopped.
 #
 # Version:	1.0
 #
 start() {
-  printf "Starting AGS LASERVISION daemon"
-  start-stop-daemon --start --quiet --make-pidfile --pidfile /var/run/agsd.pid --background --exec /usr/sbin/agsd &
-  [ $? = 0 ] && echo "OK" || echo "FAIL"
+    printf "Starting AGS LASERVISION daemon"
+    mount -a
+    start-stop-daemon -b -S -q -m -p /var/run/agsd.pid --exec /laservision/sbin/agsd -- -n
+    echo "OK"
 }
 
 stop() {
-  printf "Stopping AGS daemon: "
+  printf "Stopping AGS LASERVISION daemon: "
   start-stop-daemon -K -q -p /var/run/agsd.pid
-  [ $? = 0 ] && echo "OK" || echo "FAIL"
+  echo "OK"
   ifdown eth0
 }
 
 restart() {
+  printf "Restarting AGS LASERVISION daemon"
   stop
   sleep 1
   ifup eth0
   sleep 1
   start
+  echo "OK"
 }
 
 case "$1" in
