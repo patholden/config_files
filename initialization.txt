@@ -14,6 +14,6 @@ SuperFineFactor = 20
 Searchattempts = 2
 multiplesweeps = 2 
 Dwell = 10
-IpAddress = 10.1.1.206
-ProjectorMode = Vision
+IpAddress = 10.1.1.116
+ProjectorMode = Laser
 XXX
