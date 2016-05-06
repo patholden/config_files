@@ -6,9 +6,17 @@
 # Version:	1.0
 #
 start() {
-    printf "Starting AGS LASERVISION daemon"
+    printf "\nStarting AGS LASERVISION daemon--"
     mount -a
-    start-stop-daemon -b -S -q -m -p /var/run/agsd.pid --exec /laservision/sbin/agsd -- -n
+    if [ -e "/laservision/sbin/agsd" ]; then
+	start-stop-daemon -b -S -q -m -p /var/run/agsd.pid --exec /laservision/sbin/agsd -- -n
+    else
+	if [ -e "/backup/sbin/agsd.orig" ]; then
+	    start-stop-daemon -b -S -q -m -p /var/run/agsd.pid --exec /backup/sbin/agsd -- -n
+	else
+	    start-stop-daemon -b -S -q -m -p /var/run/agsd.pid --exec /agslaser/agsd.bk -- -n
+	fi
+    fi
     echo "OK"
 }
 

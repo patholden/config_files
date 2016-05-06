@@ -82,7 +82,7 @@ define SET_NETWORK_LOCALHOST
 		echo "auto eth0";                                    \
 		echo "iface eth0 inet static";                       \
 		echo " name Ethernet alias LAN card";                \
-		echo " address 10.1.1.206";                          \
+		echo " address 10.1.1.116";                          \
 		echo " broadcast 10.1.1.254";                        \
 		echo " gateway 10.1.1.1";                            \
 		echo " netmask 255.255.0.0"; 		             \

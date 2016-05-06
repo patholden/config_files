@@ -747,6 +747,9 @@ static void run_shutdown_and_kill_processes(void)
 	sync();
 	message(L_CONSOLE, "** Invoke Magic SysRq Reboot ***\n");
 	sleep(2);
+	system("echo s > /proc/sysrq-trigger");
+	system("echo u > /proc/sysrq-trigger");
+	system("echo s > /proc/sysrq-trigger");
 	system("echo b > /proc/sysrq-trigger");
 	_exit(EXIT_SUCCESS);
 	while (1)
