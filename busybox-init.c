@@ -720,7 +720,11 @@ static void pause_and_low_level_reboot(unsigned magic)
 	 * the init process exits... */
 	pid = vfork();
 	if (pid == 0) { /* child */
-	    reboot(magic);
+	  //	    reboot(magic);
+#if 0
+	  //FIXME---this causes kernel panic
+	  system("echo b > /proc/sysrq-trigger");
+#endif
             _exit(EXIT_SUCCESS);
 	}
 	while (1)
@@ -747,13 +751,6 @@ static void run_shutdown_and_kill_processes(void)
 	sync();
 	message(L_CONSOLE, "** Invoke Magic SysRq Reboot ***\n");
 	sleep(2);
-	system("echo s > /proc/sysrq-trigger");
-	system("echo u > /proc/sysrq-trigger");
-	system("echo s > /proc/sysrq-trigger");
-	system("echo b > /proc/sysrq-trigger");
-	_exit(EXIT_SUCCESS);
-	while (1)
-		sleep(1);
 }
 
 /* Signal handling by init:
