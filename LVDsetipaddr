@@ -23,6 +23,3 @@ iface eth0 inet static
  gateway $gwaddr
  netmask 255.255.0.0
 EOF
-ifdown eth0
-sync
-ifup eth0
